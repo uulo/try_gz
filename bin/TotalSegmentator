@@ -20,12 +20,12 @@ def main():
                                      epilog="Written by Jakob Wasserthal. If you use this tool please cite https://arxiv.org/abs/2208.05868")
 
     parser.add_argument("--i", metavar="filepath", dest="input",
-                        default = '/data1/yckj4254/seg_data/data_process/try',
+                        default = '/data1/yckj4254/seg_data/train_nii/1.2.826.0.1.3680043.20574/1.2.826.0.1.3680043.20574.nii.gz',
                         help="CT nifti image", 
                         type=lambda p: Path(p).absolute())
 
     parser.add_argument("--o", metavar="directory", dest="output",
-                        default = '/data1/yckj4254/seg_data/TotalSegmentator/trg_seg',
+                        default = '/data1/yckj4254/seg_data/TotalSegmentator/tests',
                         help="Output directory for segmentation masks", 
                         type=lambda p: Path(p).absolute())
 
@@ -33,7 +33,7 @@ def main():
                         default=False)
     
     # parser.add_argument("-nr", "--nr_thr_resamp", type=int, help="Nr of threads for resampling", default=1)
-    parser.add_argument("-nr", "--nr_thr_resamp", type=int, help="Nr of threads for resampling", default=4)
+    parser.add_argument("-nr", "--nr_thr_resamp", type=int, help="Nr of threads for resampling", default=1)
     # parser.add_argument("-ns", "--nr_thr_saving", type=int, help="Nr of threads for saving segmentations", default=6)
     parser.add_argument("-ns", "--nr_thr_saving", type=int, help="Nr of threads for saving segmentations", 
                         default=8)
