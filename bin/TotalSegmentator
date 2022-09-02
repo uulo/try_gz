@@ -31,11 +31,12 @@ def main():
 
     parser.add_argument("--ml", action="store_true", help="Save one multilabel image for all classes",
                         default=False)
-
-    parser.add_argument("-nr", "--nr_thr_resamp", type=int, help="Nr of threads for resampling", default=1)
-
+    
+    # parser.add_argument("-nr", "--nr_thr_resamp", type=int, help="Nr of threads for resampling", default=1)
+    parser.add_argument("-nr", "--nr_thr_resamp", type=int, help="Nr of threads for resampling", default=4)
+    # parser.add_argument("-ns", "--nr_thr_saving", type=int, help="Nr of threads for saving segmentations", default=6)
     parser.add_argument("-ns", "--nr_thr_saving", type=int, help="Nr of threads for saving segmentations", 
-                        default=6)
+                        default=8)
 
     parser.add_argument("-f", "--fast", action="store_true", help="Run faster lower resolution model",
                         default=False)

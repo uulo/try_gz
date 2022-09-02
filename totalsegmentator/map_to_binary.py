@@ -29,26 +29,7 @@
 #     11: "sacrum"
 # }
 
-
-
 class_map = {
-        1: "vertebrae_L5",
-        2: "vertebrae_L4",
-        3: "vertebrae_L3",
-        4: "vertebrae_L2",
-        5: "vertebrae_L1",
-        6: "vertebrae_T12",
-        7: "vertebrae_T11",
-        8: "vertebrae_T10",
-        9: "vertebrae_T9",
-        10: "vertebrae_T8",
-        11: "vertebrae_T7",
-        12: "vertebrae_T6",
-        13: "vertebrae_T5",
-        14: "vertebrae_T4",
-        15: "vertebrae_T3",
-        16: "vertebrae_T2",
-        17: "vertebrae_T1",
         18: "vertebrae_C7",
         19: "vertebrae_C6",
         20: "vertebrae_C5",
@@ -57,6 +38,34 @@ class_map = {
         23: "vertebrae_C2",
         24: "vertebrae_C1"
 }
+
+
+# class_map = {
+#         1: "vertebrae_L5",
+#         2: "vertebrae_L4",
+#         3: "vertebrae_L3",
+#         4: "vertebrae_L2",
+#         5: "vertebrae_L1",
+#         6: "vertebrae_T12",
+#         7: "vertebrae_T11",
+#         8: "vertebrae_T10",
+#         9: "vertebrae_T9",
+#         10: "vertebrae_T8",
+#         11: "vertebrae_T7",
+#         12: "vertebrae_T6",
+#         13: "vertebrae_T5",
+#         14: "vertebrae_T4",
+#         15: "vertebrae_T3",
+#         16: "vertebrae_T2",
+#         17: "vertebrae_T1",
+#         18: "vertebrae_C7",
+#         19: "vertebrae_C6",
+#         20: "vertebrae_C5",
+#         21: "vertebrae_C4",
+#         22: "vertebrae_C3",
+#         23: "vertebrae_C2",
+#         24: "vertebrae_C1"
+# }
 
 
 
