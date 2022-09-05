@@ -20,7 +20,9 @@ def main():
                                      epilog="Written by Jakob Wasserthal. If you use this tool please cite https://arxiv.org/abs/2208.05868")
 
     parser.add_argument("--i", metavar="filepath", dest="input",
-                        default = '/data1/yckj4254/seg_data/train_nii/1.2.826.0.1.3680043.20574/1.2.826.0.1.3680043.20574.nii.gz',
+                        # default = '/data1/yckj4254/seg_data/train_nii/1.2.826.0.1.3680043.20574/1.2.826.0.1.3680043.20574.nii.gz',
+                        default = '/data1/yckj4254/seg_data/data_process/try_0905/1.2.826.0.1.3680043.21997/1.2.826.0.1.3680043.21997.nii',
+                        # default = '/data1/yckj4254/seg_data/train_nii/1.2.826.0.1.3680043.21997/1.2.826.0.1.3680043.21997.nii.gz',
                         help="CT nifti image", 
                         type=lambda p: Path(p).absolute())
 
@@ -39,7 +41,7 @@ def main():
                         default=8)
 
     parser.add_argument("-f", "--fast", action="store_true", help="Run faster lower resolution model",
-                        default=False)
+                        default=True)
 
     parser.add_argument("-t", "--nora_tag", type=str, 
                         help="tag in nora as mask. Pass nora project id as argument.",

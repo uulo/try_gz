@@ -29,15 +29,31 @@
 #     11: "sacrum"
 # }
 
+
+### 256 map  
+# class_map = {
+#         18: "vertebrae_C7",
+#         19: "vertebrae_C6",
+#         20: "vertebrae_C5",
+#         21: "vertebrae_C4",
+#         22: "vertebrae_C3",
+#         23: "vertebrae_C2",
+#         24: "vertebrae_C1"
+# }
+
+
+### 252 map  fast
 class_map = {
-        18: "vertebrae_C7",
-        19: "vertebrae_C6",
-        20: "vertebrae_C5",
-        21: "vertebrae_C4",
-        22: "vertebrae_C3",
-        23: "vertebrae_C2",
-        24: "vertebrae_C1"
+    35: "vertebrae_C7",
+    36: "vertebrae_C6",
+    37: "vertebrae_C5",
+    38: "vertebrae_C4",
+    39: "vertebrae_C3",
+    40: "vertebrae_C2",
+    41: "vertebrae_C1"
 }
+
+
 
 
 # class_map = {

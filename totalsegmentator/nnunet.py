@@ -104,39 +104,40 @@ def nnUNet_predict(dir_in, dir_out, task_id, model="3d_fullres", folds=None,
 
 
 def save_segmentation_nifti(class_map_item, tmp_dir=None, file_out=None, nora_tag=None):
-            k, v = class_map_item
-            # Have to load img inside of each thread. If passing it as argument a lot slower.
-            img = nib.load(tmp_dir / "s01.nii.gz")
-            img_data = img.get_fdata()
-            binary_img = img_data == k
-            output_path = str(file_out / f"{v}.nii.gz")
-            nib.save(nib.Nifti1Image(binary_img.astype(np.uint8), img.affine, img.header), output_path)
-            if nora_tag != "None":
-                subprocess.call(f"/opt/nora/src/node/nora -p {nora_tag} --add {output_path} --addtag mask", shell=True)
+    k, v = class_map_item
+    # Have to load img inside of each thread. If passing it as argument a lot slower.
+    img = nib.load(tmp_dir / "s01.nii.gz")
+    img_data = img.get_fdata()
+    binary_img = img_data == k
+    output_path = str(file_out / f"{v}.nii.gz")
+    nib.save(nib.Nifti1Image(binary_img.astype(np.uint8), img.affine, img.header), output_path)
+    if nora_tag != "None":
+        subprocess.call(f"/opt/nora/src/node/nora -p {nora_tag} --add {output_path} --addtag mask", shell=True)
 
 
 def save_segmentation_and_ori_nifti(class_map_item, tmp_dir=None, img_in=None,  file_out=None, nora_tag=None):
-            k, v = class_map_item
-            # Have to load img inside of each thread. If passing it as argument a lot slower.
-            img = nib.load(tmp_dir / "s01.nii.gz")
-            img_data = img.get_fdata()
-            binary_img = img_data == k
-            
-            img_in = nib.load(img_in)
-            img_ori = img_in.get_fdata()
-            mask_index = np.nonzero(binary_img)
-            if mask_index[0].size > 0 and mask_index[1].size > 0 and mask_index[2].size > 0:
-                a_min, a_max = mask_index[0].min(), mask_index[0].max()
-                b_min, b_max = mask_index[1].min(), mask_index[1].max()
-                c_min, c_max = mask_index[2].min(), mask_index[2].max()
-                # labels_out = cc3d.connected_components(img_mask) # 26-connected
-                # print('(labels_out != img_mask).sum()',(labels_out != img_mask).sum())
-                img = img_ori[a_min:a_max+1,b_min:b_max+1,c_min:c_max+1]*binary_img[a_min:a_max+1,b_min:b_max+1,c_min:c_max+1]               
-            
-            output_path = str(file_out / f"{v}.nii.gz")
-            nib.save(nib.Nifti1Image(binary_img.astype(np.uint8), img.affine, img.header), output_path)
-            if nora_tag != "None":
-                subprocess.call(f"/opt/nora/src/node/nora -p {nora_tag} --add {output_path} --addtag mask", shell=True)
+    k, v = class_map_item
+    # Have to load img inside of each thread. If passing it as argument a lot slower.
+    img = nib.load(tmp_dir / "s01.nii.gz")
+    img_data = img.get_fdata()
+    binary_img = img_data == k
+    
+    img_in_data = nib.load(img_in)
+    img_ori = img_in_data.get_fdata()
+    mask_index = np.nonzero(binary_img)
+    if mask_index[0].size > 0 and mask_index[1].size > 0 and mask_index[2].size > 0:
+        a_min, a_max = mask_index[0].min(), mask_index[0].max()
+        b_min, b_max = mask_index[1].min(), mask_index[1].max()
+        c_min, c_max = mask_index[2].min(), mask_index[2].max()
+        # labels_out = cc3d.connected_components(img_mask) # 26-connected
+        # print('(labels_out != img_mask).sum()',(labels_out != img_mask).sum())
+        img_save = img_ori[a_min:a_max+1,b_min:b_max+1,c_min:c_max+1]*binary_img[a_min:a_max+1,b_min:b_max+1,c_min:c_max+1]               
+    
+    output_path = str(file_out / f"{v}.nii.gz")
+    # nib.save(nib.Nifti1Image(binary_img.astype(np.uint8), img.affine, img.header), output_path)
+    nib.save(nib.Nifti1Image(img_save, img.affine, img.header), output_path)
+    if nora_tag != "None":
+        subprocess.call(f"/opt/nora/src/node/nora -p {nora_tag} --add {output_path} --addtag mask", shell=True)
 
 
 
@@ -241,7 +242,7 @@ def nnUNet_predict_image(file_in, file_out, task_id, model="3d_fullres", folds=N
             
             # _ = p_map(partial(save_segmentation_nifti, tmp_dir=tmp_dir, file_out=file_out, nora_tag=nora_tag),
             #         class_map.items(), num_cpus=nr_threads_saving, disable=quiet)
-            _ = p_map(partial(save_segmentation_and_ori_nifti, tmp_dir=tmp_dir, img_in = tmp_dir / "s01_0000.nii.gz",  file_out=file_out, nora_tag=nora_tag),
+            _ = p_map(partial(save_segmentation_and_ori_nifti, tmp_dir=tmp_dir, img_in = file_in,  file_out=file_out, nora_tag=nora_tag),
                     class_map.items(), num_cpus=nr_threads_saving, disable=quiet)
             
             # Multihreaded saving with same functions as in nnUNet -> same speed as p_map
